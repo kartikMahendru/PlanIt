@@ -25,12 +25,13 @@ import com.google.firebase.database.FirebaseDatabase;
 public class SignupActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private Button buttonSignup;
     DatabaseReference databaseUser;
-    private TextView textViewSignin;
+    private EditText editTextName;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private EditText editTextcPassword;
+    Spinner spinner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,34 +39,36 @@ public class SignupActivity extends AppCompatActivity {
 
 
         firebaseAuth = FirebaseAuth.getInstance();
-
+        editTextName=(EditText)findViewById(R.id.editTextName);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         editTextcPassword=(EditText)findViewById(R.id.editTextcPassword);
         progressDialog = new ProgressDialog(this);
         databaseUser= FirebaseDatabase.getInstance().getReference("Users");
 
-        Spinner spinner=(Spinner)findViewById(R.id.spinner);
+        spinner=(Spinner)findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.types,R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
     }
 
     public void SignUpButton(View v){
-        final String email = editTextEmail.getText().toString().trim();
-        String password  = editTextPassword.getText().toString().trim();
-        String cpassword= editTextcPassword.getText().toString().trim();
+        final String semail = editTextEmail.getText().toString().trim();
+        String spassword  = editTextPassword.getText().toString().trim();
+        String scpassword= editTextcPassword.getText().toString().trim();
+        final String sprofession = spinner.getSelectedItem().toString();
+        final String sname=editTextName.getText().toString();
 
-        if(TextUtils.isEmpty(email)){
+        if(TextUtils.isEmpty(semail)){
             Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if(TextUtils.isEmpty(password)){
+        if(TextUtils.isEmpty(spassword)){
             Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
             return;
         }
 
-        if (password.equals(cpassword)==false){
+        if (spassword.equals(scpassword)==false){
             Toast.makeText(this,"Re-enter Password",Toast.LENGTH_LONG).show();
             return;
         }
@@ -74,7 +77,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         //creating a new user
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        firebaseAuth.createUserWithEmailAndPassword(semail, spassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -83,6 +86,14 @@ public class SignupActivity extends AppCompatActivity {
                             finish();
                             Toast.makeText(SignupActivity.this,"Registered! Now Login",Toast.LENGTH_LONG).show();
                             FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
+
+
+                            String resultemail = semail.replaceAll("[-+.^:,@]","");
+                            User user=new User(sname,semail,sprofession);
+                            DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
+                            mDatabase.child("users").child(resultemail).setValue(user);
+
+
                             startActivity(new Intent(SignupActivity.this, LoginActivity.class));
                         }else{
                             //display some message here
