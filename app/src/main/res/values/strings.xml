@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FoodManagement</string>
+
+
+    <string-array name="types">
+        <item>Mess</item>
+        <item>Marriage</item>
+        <item>Hotel</item>
+        <item>Other</item>
+    </string-array>
+</resources>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "161104549535",
+    "firebase_url": "https://foodmanagement-29659.firebaseio.com",
+    "project_id": "foodmanagement-29659",
+    "storage_bucket": "foodmanagement-29659.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:161104549535:android:ea6ec401b6ce37ae6e34aa",
+        "android_client_info": {
+          "package_name": "com.example.kartik.foodmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "161104549535-g658hlvl757ga3qfenfrc062b4jblnci.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.kartik.foodmanagement",
+            "certificate_hash": "21599f0356f8af6e4060f1a56d223bd89dfd480a"
+          }
+        },
+        {
+          "client_id": "161104549535-qcf77r7bsr7t861gb1ahc1j7s6bvc8u2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7bsEhNsH5XxJIhIw6eo55sqVCX-H2ySM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "161104549535-qcf77r7bsr7t861gb1ahc1j7s6bvc8u2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
