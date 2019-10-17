@@ -13,53 +13,62 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusableInTouchMode="true"
-            android:focusable="true"
-            >
+            android:focusable="true" >
+
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="write something"
+                    android:hint="Event Name"
                     android:ems="10"
                     android:id="@+id/editText"
                     android:textSize="20sp"
-                    android:inputType="text"
-                    />
-        </android.support.design.widget.TextInputLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="100dp"
-            >
-                <ImageView
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher_round"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="choose"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="upload"
-                    />
+                    android:inputType="text" />
 
+        </android.support.design.widget.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:id="@+id/imageView"
+                    android:src="@mipmap/ic_launcher_round" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="Choose"
+                            android:onClick="chooseImage"/>
+
+                        <Button
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="150dp"
+                            android:text="Upload"
+                            android:onClick="uploadImage"/>
+
+                </LinearLayout>
 
         </LinearLayout>
+
         <Button
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="50dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
             android:onClick="createAndShare"
-            android:text="create and share link"
-            />
-
-
-
+            android:text="Create and share link" />
 
 </LinearLayout>
