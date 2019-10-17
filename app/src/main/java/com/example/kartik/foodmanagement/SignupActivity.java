@@ -88,7 +88,7 @@ public class SignupActivity extends AppCompatActivity {
                             FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
 
 
-                            String resultemail = semail.replaceAll("[-+.^:,@]","");
+                            String resultemail = semail.replaceAll("[-+.^:,@*]","");
                             User user=new User(sname,semail,sprofession);
                             DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
                             mDatabase.child("users").child(resultemail).setValue(user);
@@ -108,5 +108,4 @@ public class SignupActivity extends AppCompatActivity {
         Intent i=new Intent(SignupActivity.this,LoginActivity.class);
         startActivity(i);
     }
-
 }
