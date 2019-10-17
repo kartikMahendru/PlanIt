@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void SignInButton(View v){
-        String email = editTextEmail.getText().toString().trim();
+        final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
 
 
@@ -79,7 +79,9 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful()){
                             //start t he profile activity
                             finish();
-                            startActivity(new Intent(getApplicationContext(), Welcome.class));
+                            Intent i=new Intent(getApplicationContext(), Welcome.class);
+                            i.putExtra("emailId",email);
+                            startActivity(i);
                         }
                         else{
                             //display some message here

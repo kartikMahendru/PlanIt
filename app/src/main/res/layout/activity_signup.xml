@@ -37,6 +37,7 @@
             android:layout_height="wrap_content"
             android:hint="NAME"
             android:ems="10"
+            android:id="@+id/editTextName"
             android:textSize="20sp"
             android:inputType="text"
             />
