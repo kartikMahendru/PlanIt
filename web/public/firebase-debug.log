@@ -1,0 +1,36 @@
+[debug] [2019-10-20T06:19:05.919Z] ----------------------------------------------------------------------
+[debug] [2019-10-20T06:19:05.923Z] Command:       /usr/local/bin/firebase /home/user/.cache/firebase/tools/lib/node_modules/firebase-tools/lib/bin/firebase serve
+[debug] [2019-10-20T06:19:05.923Z] CLI Version:   7.6.0
+[debug] [2019-10-20T06:19:05.924Z] Platform:      linux
+[debug] [2019-10-20T06:19:05.924Z] Node Version:  v10.15.3
+[debug] [2019-10-20T06:19:05.944Z] Time:          Sun Oct 20 2019 11:49:05 GMT+0530 (India Standard Time)
+[debug] [2019-10-20T06:19:05.944Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-10-20T06:19:05.966Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-10-20T06:19:05.966Z] > authorizing via signed-in user
+[debug] [2019-10-20T06:19:05.966Z] [iam] checking project foodmanagement-29659 for permissions ["firebase.projects.get"]
+[debug] [2019-10-20T06:19:05.969Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-10-20T06:19:05.970Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-10-20T06:19:06.559Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-20T06:19:06.602Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/foodmanagement-29659:testIamPermissions  
+
+[debug] [2019-10-20T06:19:08.707Z] <<< HTTP RESPONSE 200
+[debug] [2019-10-20T06:19:08.712Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/foodmanagement-29659  
+ 
+[debug] [2019-10-20T06:19:09.656Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/user/2019-20-Classes/WebDev/2019_08_21_Webster-Class-1/HTML Codes'...
+[info] 
+[debug] [2019-10-20T06:19:09.670Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/foodmanagement-29659/webApps/-/config  
+ 
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[info] ✔  functions: Emulator started at http://localhost:5001
+[debug] [2019-10-20T06:19:10.931Z] <<< HTTP RESPONSE 200
+[info] i  functions: Watching "/home/user/2019-20-Classes/WebDev/2019_08_21_Webster-Class-1/HTML Codes/functions" for Cloud Functions...
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-10-20T06:19:11.873Z] [runtime-status] Functions runtime initialized. {"cwd":"/home/user/2019-20-Classes/WebDev/2019_08_21_Webster-Class-1/HTML Codes/functions","node_version":"10.15.3"}
+[debug] [2019-10-20T06:19:11.873Z] [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be installed. This package is in your package.json, but it's not available. You probably need to run "npm install" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
