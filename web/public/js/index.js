@@ -1,5 +1,6 @@
+var url,params,data, tmp;
 window.onload = function () {
-    var url = document.location.href,
+        url = document.location.href,
         params = url.split('?')[1].split('&'),
         data = {}, tmp;
     for (var i = 0, l = params.length; i < l; i++) {
@@ -16,4 +17,19 @@ window.onload = function () {
   		var imageURL = String(snapshot.val());
     	document.getElementById("image").src=imageURL;
 	});
+}
+
+function save(){
+  if(document.getElementById("YesRadio").checked){
+    console.log("inside if");
+    var database = firebase.database().ref().child("events").child(String(data.name));
+    database.child("count").once('value', function(snapshot){
+       var text = Number(snapshot.val())+1;
+       console.log(text);
+      var updates = {};
+      updates['/events/' + data.name + "/" + "count"] = text;
+      return firebase.database().ref().update(updates);
+    });
+
+  }
 }
