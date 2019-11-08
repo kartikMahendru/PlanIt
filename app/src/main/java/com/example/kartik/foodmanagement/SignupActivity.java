@@ -7,13 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -21,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class SignupActivity extends AppCompatActivity {
     private EditText editTextEmail;
@@ -30,7 +26,7 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private EditText editTextcPassword;
-    Spinner spinner;
+    // Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,30 +42,39 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         databaseUser= FirebaseDatabase.getInstance().getReference("Users");
 
-        spinner=(Spinner)findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.types,R.layout.support_simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+//        spinner=(Spinner)findViewById(R.id.spinner);
+//        ArrayAdapter<CharSequence> adapter=ArrayAdapter.createFromResource(this,R.array.types,R.layout.support_simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
     }
 
     public void SignUpButton(View v){
         final String semail = editTextEmail.getText().toString().trim();
         String spassword  = editTextPassword.getText().toString().trim();
         String scpassword= editTextcPassword.getText().toString().trim();
-        final String sprofession = spinner.getSelectedItem().toString();
+        // final String sprofession = spinner.getSelectedItem().toString();
         final String sname=editTextName.getText().toString();
 
         if(TextUtils.isEmpty(semail)){
-            Toast.makeText(this,"Please enter email",Toast.LENGTH_LONG).show();
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please enter email!")
+                    .show();
             return;
         }
 
         if(TextUtils.isEmpty(spassword)){
-            Toast.makeText(this,"Please enter password",Toast.LENGTH_LONG).show();
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please enter password!")
+                    .show();
             return;
         }
 
         if (spassword.equals(scpassword)==false){
-            Toast.makeText(this,"Re-enter Password",Toast.LENGTH_LONG).show();
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please re-enter password!")
+                    .show();
             return;
         }
 
@@ -84,20 +89,23 @@ public class SignupActivity extends AppCompatActivity {
                         //checking if success
                         if(task.isSuccessful()){
                             finish();
-                            Toast.makeText(SignupActivity.this,"Registered! Now Login",Toast.LENGTH_LONG).show();
-                            FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser() ;
-
+                            Toast.makeText(SignupActivity.this,"Registered successfully!",Toast.LENGTH_LONG).show();
+                            FirebaseAuth currentFirebaseUser = FirebaseAuth.getInstance();
 
                             String resultemail = semail.replaceAll("[-+.^:,@*]","");
-                            User user=new User(sname,semail,sprofession);
+                            User user=new User(sname,semail,"Other");
                             DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
                             mDatabase.child("users").child(resultemail).setValue(user);
 
-
+                            currentFirebaseUser.signOut();
                             startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                            finish();
                         }else{
                             //display some message here
-                            Toast.makeText(SignupActivity.this,"Registration Error",Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(SignupActivity.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Oops...")
+                                    .setContentText("Registration error!")
+                                    .show();
                         }
                         progressDialog.dismiss();
                     }
@@ -107,5 +115,6 @@ public class SignupActivity extends AppCompatActivity {
     public void SignInText(View v){
         Intent i=new Intent(SignupActivity.this,LoginActivity.class);
         startActivity(i);
+        finish();
     }
 }

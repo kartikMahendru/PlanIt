@@ -14,7 +14,6 @@ import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +29,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Random;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class Welcome extends AppCompatActivity {
 
@@ -45,17 +47,17 @@ public class Welcome extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     String emailId;
     String resultemail;
-    private String downloadUrl;
+    private String downloadUrl="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        Intent in=getIntent();
-        emailId=in.getExtras().getString("emailId");
+        SessionManager sm = new SessionManager(getApplicationContext());
+        HashMap<String, String> details = sm.getUserDetails();
+        String emailId = details.get("emailID");
         resultemail = emailId.replaceAll("[-+.^:,@*]","");
-        Toast.makeText(getApplicationContext(),emailId,Toast.LENGTH_LONG).show();
 
         editText=findViewById(R.id.editText);
         imageView=findViewById(R.id.imageView);
@@ -85,7 +87,7 @@ public class Welcome extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 20, byteArrayOutputStream);
                 imageDataInByte = byteArrayOutputStream.toByteArray();
                 Log.d("TAG :: ","Image selected :: " + filePath.toString());
-                Glide.with(getApplicationContext()).load(bitmap).apply(RequestOptions.centerCropTransform()).into(imageView);
+                Glide.with(getApplicationContext()).load(bitmap).apply(RequestOptions.fitCenterTransform()).into(imageView);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -113,10 +115,11 @@ public class Welcome extends AppCompatActivity {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-
                             progressDialog.dismiss();
 
-                            Toast.makeText(getApplicationContext(), "File uploaded", Toast.LENGTH_LONG).show();
+                            new SweetAlertDialog(Welcome.this, SweetAlertDialog.SUCCESS_TYPE)
+                                    .setTitleText("File uploaded successfully!")
+                                    .show();
 
                             Task<Uri> s= sRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                                 @Override
@@ -131,7 +134,10 @@ public class Welcome extends AppCompatActivity {
                         @Override
                         public void onFailure(@NonNull Exception e) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Upload failed!!",Toast.LENGTH_LONG ).show();
+                            new SweetAlertDialog(Welcome.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("Upload failed!")
+                                    .setContentText("Something went wrong!")
+                                    .show();
                         }
                     })
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
@@ -144,21 +150,46 @@ public class Welcome extends AppCompatActivity {
         }
         else
         {
-            Toast.makeText(getApplicationContext(), "No image selected!!", Toast.LENGTH_LONG).show();
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("No image selected!")
+                    .show();
         }
     }
 
     public void createAndShare (View v)
     {
         // get event name
-        String eventName = editText.getText().toString();
+        final String eventName = editText.getText().toString();
 
         // generate a unique 4 digit id for an event
-        String id = String.format("%04d",new Random().nextInt(10000));
+        String id = String.format("%04d", new Random().nextInt(10000));
 
-        mDatabase.child("users").child(resultemail).child("events").child(id).setValue("1");
+        if(eventName.equals(""))
+        {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please enter event name!")
+                    .show();
+        }
+        else if(downloadUrl.equals(""))
+        {
+            new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Oops...")
+                    .setContentText("Please upload an image!")
+                    .show();
+        }
+        else
+        {
+            Event event = new Event(eventName, downloadUrl, 0, id);
+            mDatabase.child("users").child(resultemail).child("events").child(id).setValue(event);
+            mDatabase.child("events").child(id).setValue(event);
 
-        Event event=new Event(eventName,downloadUrl,0);
-        mDatabase.child("events").child(id).setValue(event);
+            Intent i = new Intent(getApplicationContext(), EventManager.class);
+            i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.putExtra("emailId", resultemail);
+            startActivity(i);
+            finish();
+        }
     }
 }
