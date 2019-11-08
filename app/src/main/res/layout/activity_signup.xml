@@ -7,23 +7,25 @@
     android:orientation="vertical"
     android:padding="35dp"
     android:background="@color/background"
-    tools:context="com.example.kartik.foodmanagement.SignupActivity">
+    tools:context="com.example.kartik.foodmanagement.SignupActivity" >
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:focusable="true"
-        >
+        android:layout_marginTop="10dp" >
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="SIGNUP"
             android:ems="10"
+            android:fontFamily="@font/creteround"
             android:textAlignment="center"
             android:textSize="40sp"
-            android:textColor="@color/colorAccent"
-            />
+            android:textColor="@color/colorAccent" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -31,7 +33,8 @@
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
         android:focusable="true"
-        >
+        android:layout_marginTop="20dp" >
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,16 +42,16 @@
             android:ems="10"
             android:id="@+id/editTextName"
             android:textSize="20sp"
-            android:inputType="text"
-            />
+            android:inputType="text" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
-        android:focusable="true"
-        >
+        android:focusable="true" >
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,16 +59,16 @@
             android:id="@+id/editTextEmail"
             android:ems="10"
             android:textSize="20sp"
-            android:inputType="textEmailAddress"
-            />
+            android:inputType="textEmailAddress" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
-        android:focusable="true"
-        >
+        android:focusable="true" >
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,16 +76,16 @@
             android:id="@+id/editTextPassword"
             android:ems="10"
             android:textSize="20sp"
-            android:inputType="text"
-            />
+            android:inputType="text" />
+
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
-        android:focusable="true"
-        >
+        android:focusable="true" >
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -90,19 +93,19 @@
             android:ems="10"
             android:id="@+id/editTextcPassword"
             android:textSize="20sp"
-            android:inputType="text"
-            />
+            android:inputType="text" />
+
     </android.support.design.widget.TextInputLayout>
 
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="30dp"
-        >
-    </Spinner>
+<!--    <Spinner-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/spinner"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_marginLeft="30dp"-->
+<!--        >-->
+<!--    </Spinner>-->
 
     <Button
         android:layout_marginTop="40dp"
@@ -111,32 +114,31 @@
         android:text="SIGNUP"
         android:onClick="SignUpButton"
         android:textSize="20sp"
-        android:background="@drawable/rounded_button"
-        />
+        android:background="@drawable/rounded_button" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center_horizontal"
-        >
+        android:layout_gravity="center_horizontal" >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingLeft="40dp"
             android:textSize="20dp"
-            android:text="Already Registered!! "
-            />
+            android:text="Already Registered! " />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SignIn"
+            android:text="@string/sign_in"
             android:textSize="20dp"
             android:clickable="true"
             android:onClick="SignInText"
-            android:textColor="@color/colorAccent"
-            />
-    </LinearLayout>
+            android:textColor="@color/colorAccent" />
 
+    </LinearLayout>
 
 </LinearLayout>

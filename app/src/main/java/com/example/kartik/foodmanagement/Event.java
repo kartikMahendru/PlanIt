@@ -1,22 +1,20 @@
 package com.example.kartik.foodmanagement;
 
-/**
- * Created by kartik on 17/10/19.
- */
-
 public class Event {
     private String eventName;
-    private String ImageLink;
-    private int count;
+    private String imageLink;
+    private String eventLink;
+    private long count;
 
-    public void Event(){
+    public Event(){
 
     }
 
-    public Event(String eventName, String imageLink, int count) {
+    public Event(String eventName, String imageLink, long count, String eventLink) {
         this.eventName = eventName;
-        ImageLink = imageLink;
+        this.imageLink = imageLink;
         this.count = count;
+        this.eventLink = eventLink;
     }
 
     public void setEventName(String eventName) {
@@ -24,10 +22,10 @@ public class Event {
     }
 
     public void setImageLink(String imageLink) {
-        ImageLink = imageLink;
+        imageLink = imageLink;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 
@@ -36,10 +34,14 @@ public class Event {
     }
 
     public String getImageLink() {
-        return ImageLink;
+        return imageLink;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
+
+    public String getEventLink() { return eventLink; }
+
+    public void setEventLink(String eventLink) { this.eventLink = eventLink; }
 }
