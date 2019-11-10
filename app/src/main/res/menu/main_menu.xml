@@ -8,6 +8,12 @@
         android:title="Add">
     </item>
     <item
+        android:id="@+id/mark"
+        android:icon="@android:drawable/ic_menu_mapmode"
+        app:showAsAction="ifRoom"
+        android:title="Map">
+    </item>
+    <item
         android:id="@+id/action_settings"
         app:showAsAction="never"
         android:title="About us">
