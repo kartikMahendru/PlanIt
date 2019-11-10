@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.kartik.foodmanagement">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
     <application
         tools:replace="icon, label"
         android:allowBackup="true"
@@ -23,6 +28,10 @@
         <activity android:name=".Welcome" android:label="Create event" android:screenOrientation="portrait"></activity>
         <activity android:name=".EventManager" android:screenOrientation="portrait"></activity>
         <activity android:name=".AboutUs" android:label="About Us" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MapsMarkLocation"/>
+        <activity android:name=".OrgActivity"/>
+        <activity android:name=".UploadActivity"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDBD2LUgwnVFl0BeGlMZA3ZiO0eAvfHK8w"/>
     </application>
 
 </manifest>

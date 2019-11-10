@@ -37,7 +37,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="EMAIL"
+            android:hint="EMAIL or PHONE"
             android:ems="10"
             android:id="@+id/editTextEmail"
             android:textSize="20sp"
@@ -61,6 +61,35 @@
             android:inputType="text"
             />
     </android.support.design.widget.TextInputLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/radioGP1">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Host"
+                android:layout_weight="1"
+                android:textSize="30dp"/>
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NGO"
+                android:layout_weight="1"
+                android:textSize="30dp"/>
+        </RadioGroup>
+
+
+
+
+    </LinearLayout>
     <Button
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"

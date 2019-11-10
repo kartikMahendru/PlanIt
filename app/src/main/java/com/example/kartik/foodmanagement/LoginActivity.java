@@ -2,12 +2,16 @@ package com.example.kartik.foodmanagement;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -38,9 +42,17 @@ public class LoginActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         if (firebaseAuth.getCurrentUser() != null)
         {
-            Intent i=new Intent(getApplicationContext(), EventManager.class);
-            startActivity(i);
-            finish();
+            SessionManager sessionManager = new SessionManager(getApplicationContext());
+            if(sessionManager.getUserDetails().get("role").equals("Event Host")){
+                Intent i=new Intent(getApplicationContext(), EventManager.class);
+                startActivity(i);
+                finish();
+            }
+            else {
+                Intent i = new Intent(getApplicationContext(), OrgActivity.class);
+                startActivity(i);
+                finish();
+            }
         }
         databaseUser= FirebaseDatabase.getInstance().getReference("Users");
 
@@ -53,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
     public void SignInButton(View v){
         final String email = editTextEmail.getText().toString().trim();
         String password  = editTextPassword.getText().toString().trim();
-
+        RadioGroup radioGroup = findViewById(R.id.radioGP1);
 
         //checking if email and passwords are empty
         if(TextUtils.isEmpty(email)){
@@ -85,14 +97,24 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         //if the task is successfull
-                        if(task.isSuccessful()){
+                        if(task.isSuccessful() && RadioButtonSelect(radioGroup.getCheckedRadioButtonId()).equals("Event Host")){
                             //start the profile activity
                             finish();
 
                             SessionManager sm = new SessionManager(getApplicationContext());
-                            sm.createLoginSession(email);
+                            sm.createLoginSession(email,"Event Host");
 
                             Intent i=new Intent(getApplicationContext(), EventManager.class);
+                            startActivity(i);
+                            finish();
+                        }
+                        else if(task.isSuccessful() && RadioButtonSelect(radioGroup.getCheckedRadioButtonId()).equals("NGO")){
+                            finish();
+
+                            SessionManager sm = new SessionManager(getApplicationContext());
+                            sm.createLoginSession(email, "NGO");
+
+                            Intent i=new Intent(getApplicationContext(), OrgActivity.class);
                             startActivity(i);
                             finish();
                         }
@@ -108,6 +130,10 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private String RadioButtonSelect(int id){
+        RadioButton radioButton = findViewById(id);
+        return radioButton.getText().toString();
+    }
     public void SignUpText(View v){
         Intent i=new Intent(LoginActivity.this,SignupActivity.class);
         startActivity(i);
