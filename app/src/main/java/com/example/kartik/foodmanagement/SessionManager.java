@@ -14,6 +14,7 @@ public class SessionManager {
 
     private static final String PREF_NAME = "Details";
     private static final String UNIQ_ID = "emailID";
+    private static final  String ROLE = "role";
 
     public SessionManager(Context context){
         this._context = context;
@@ -21,16 +22,19 @@ public class SessionManager {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String id){
+    public void createLoginSession(String id, String role){
         editor.putString(UNIQ_ID, id);
+        editor.putString(ROLE, role);
         editor.commit();
     }
 
     public HashMap<String, String> getUserDetails() {
         HashMap<String, String> user = new HashMap<String, String>();
         user.put(UNIQ_ID, pref.getString(UNIQ_ID, "Not Found"));
+        user.put(ROLE,pref.getString(ROLE,"Not Found"));
         return user;
     }
+
     public void logoutUser(){
 
         editor.clear();

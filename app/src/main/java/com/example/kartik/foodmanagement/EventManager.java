@@ -2,17 +2,19 @@ package com.example.kartik.foodmanagement;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -148,6 +150,10 @@ public class EventManager extends AppCompatActivity {
             case R.id.action_settings:
                 Intent i = new Intent(getApplicationContext(), AboutUs.class);
                 startActivity(i);
+                return true;
+            case R.id.mark:
+                Intent i1 = new Intent(getApplicationContext(), MapsMarkLocation.class);
+                startActivity(i1);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

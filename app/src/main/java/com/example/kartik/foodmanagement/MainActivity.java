@@ -2,10 +2,11 @@ package com.example.kartik.foodmanagement;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+//splash screen
 public class MainActivity extends AppCompatActivity {
 
     @Override
