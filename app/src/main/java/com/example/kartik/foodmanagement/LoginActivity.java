@@ -134,8 +134,13 @@ public class LoginActivity extends AppCompatActivity {
         RadioButton radioButton = findViewById(id);
         return radioButton.getText().toString();
     }
-    public void SignUpText(View v){
+    public void SignUpTextEvent(View v){
         Intent i=new Intent(LoginActivity.this,SignupActivity.class);
+        startActivity(i);
+        finish();
+    }
+    public void SignUpTextNGO(View v){
+        Intent i=new Intent(LoginActivity.this, OrgRegisterActivity.class);
         startActivity(i);
         finish();
     }

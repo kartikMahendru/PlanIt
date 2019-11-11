@@ -23,16 +23,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,20 +64,18 @@ import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.services.android.navigation.v5.navigation.MapboxNavigation;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
 import static com.mapbox.core.constants.Constants.PRECISION_6;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
@@ -124,12 +121,15 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         icon = iconFactory.fromResource(R.drawable.map_marker_dark);
 
         //mobNo=getIntent().getStringExtra("MOB_NUMBER");
-        mobNo = "7983039955";
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        HashMap<String, String> details = sessionManager.getUserDetails();
+        String emailId = details.get("emailID");
+        mobNo = emailId.replaceAll("[-+.^:,@*]","");
         FirebaseApp.initializeApp(this);
         myRef= FirebaseDatabase.getInstance().getReference("Organizations/"+mobNo);
         foodPickedRef=FirebaseDatabase.getInstance().getReference("food-picked");
         foodRef= FirebaseDatabase.getInstance().getReference("food-request");
-        Toast.makeText(OrgActivity.this, "references are made ",Toast.LENGTH_SHORT).show();
+        // Toast.makeText(OrgActivity.this, "references are made ",Toast.LENGTH_SHORT).show();
         mapView = findViewById(R.id.mapView);
         // to get Driver's start point and other data
         myRef.addValueEventListener(new ValueEventListener() {
@@ -145,13 +145,13 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
                     mapView.onCreate(savedInstanceState);
                     mapView.getMapAsync(OrgActivity.this);
                 }catch(Exception e) {
-                    Toast.makeText(getApplicationContext(),"User data is corrupt",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"User data is corrupt!",Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast.makeText(getApplicationContext(),"Some error occurred",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Some error occurred!",Toast.LENGTH_LONG).show();
                 finish();
             }
         });
@@ -167,12 +167,13 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
 
             enableLocationComponent(style);
             initOptimizedRouteLineLayer(style);
-            Toast.makeText(OrgActivity.this, "shoe food point called ",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(OrgActivity.this, "shoe food point called ",Toast.LENGTH_SHORT).show();
             showFoodPoints();
-            Toast.makeText(OrgActivity.this, "show food point call backed ",Toast.LENGTH_SHORT).show();
+            // Toast.makeText(OrgActivity.this, "show food point call backed ",Toast.LENGTH_SHORT).show();
             mapboxMap.setOnInfoWindowClickListener(marker -> {
                 if(marker.getTitle().substring(marker.getTitle().indexOf(' ')+1).equals("food Here"));
-                {   Toast.makeText(OrgActivity.this, "open dialog 1 ",Toast.LENGTH_SHORT).show();
+                {
+                    Toast.makeText(OrgActivity.this, "open dialog 1 ",Toast.LENGTH_SHORT).show();
                     openDialog(marker);
                     Toast.makeText(OrgActivity.this, "open dialog 2 ",Toast.LENGTH_SHORT).show();
                 }
@@ -191,11 +192,42 @@ public class OrgActivity extends AppCompatActivity implements OnMapReadyCallback
         //Display menu to user
         switch (item.getItemId()) {
             case R.id.logout:
-                clearTable();
-                saveTable();
-                Intent intent=new Intent(OrgActivity.this,MainActivity.class);
-                startActivity(intent);
-                finish();
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Are you sure you want to logout?")
+                        .setConfirmText("Yes")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                clearTable();
+                                saveTable();
+                                SessionManager sm = new SessionManager(getApplicationContext());
+                                sm.logoutUser();
+                                FirebaseAuth auth = FirebaseAuth.getInstance();
+                                auth.signOut();
+                                Intent i=new Intent(getApplicationContext(), LoginActivity.class);
+                                i.addFlags(i.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(i);
+                                finish();
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .setCancelButton("No", new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                sDialog.dismissWithAnimation();
+                            }
+                        })
+                        .show();
+                        return true;
+//                clearTable();
+//                saveTable();
+//                Intent intent=new Intent(OrgActivity.this,MainActivity.class);
+//                startActivity(intent);
+//                finish();
+            case R.id.action_settings:
+                Intent i = new Intent(getApplicationContext(), AboutUs.class);
+                startActivity(i);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
