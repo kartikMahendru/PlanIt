@@ -9,7 +9,7 @@
     android:background="@color/background"
     tools:context="com.example.kartik.foodmanagement.LoginActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -25,9 +25,9 @@
             android:textAlignment="center"
             android:textSize="40sp"
             android:textColor="@color/colorAccent" />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -43,9 +43,9 @@
             android:textSize="20sp"
             android:inputType="text"
             />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusableInTouchMode="true"
@@ -60,7 +60,8 @@
             android:textSize="20sp"
             android:inputType="text"
             />
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -76,20 +77,17 @@
                 android:layout_height="wrap_content"
                 android:text="Event Host"
                 android:layout_weight="1"
-                android:textSize="30dp"/>
+                android:textSize="20sp"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="NGO"
                 android:layout_weight="1"
-                android:textSize="30dp"/>
+                android:textSize="20sp"/>
         </RadioGroup>
-
-
-
-
     </LinearLayout>
+
     <Button
         android:layout_marginTop="40dp"
         android:layout_width="match_parent"
@@ -103,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         >
@@ -114,15 +112,33 @@
             android:textSize="20dp"
             android:text="Not Registered! "
             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="0dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center" >
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_up"
+            android:text="@string/sign_up_ec"
             android:textSize="20dp"
             android:clickable="true"
-            android:onClick="SignUpText"
-            android:textColor="@color/colorAccent"
-            />
-    </LinearLayout>
+            android:onClick="SignUpTextEvent"
+            android:textColor="@color/colorAccent" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/sign_up_ngo"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:onClick="SignUpTextNGO"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
 </LinearLayout>

@@ -9,12 +9,15 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -39,7 +42,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
@@ -69,9 +71,19 @@ public class MapsMarkLocation extends FragmentActivity implements OnMapReadyCall
     private Marker marker;
     private String access_token="pk.eyJ1IjoibmlzaGNoYWwiLCJhIjoiY2swMHZxeXNqMHE3NjNkc2N5NTJndnN2dCJ9.O2DHCiqvsvdRulclqUYxmg";
     private FloatingActionButton floatingActionButton;
-    private MaterialButton buttonConfirm;
+    private Button buttonConfirm;
     private String MOB_NUMBER;
     private DatabaseReference myRef;
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent x = new Intent(MapsMarkLocation.this, EventManager.class);
+        x.addFlags(x.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(x);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

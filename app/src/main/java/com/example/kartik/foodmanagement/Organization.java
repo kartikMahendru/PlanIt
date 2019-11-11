@@ -1,16 +1,25 @@
 package com.example.kartik.foodmanagement;
 
 public class Organization {
-        private String name,address;
+    public String getMobNo() {
+        return MobNo;
+    }
+
+    public void setMobNo(String mobNo) {
+        MobNo = mobNo;
+    }
+
+    private String name,address, MobNo;
         private double range,latitude,longitude;
 
         public Organization() {
         }
 
-        public Organization(String address, double latitude, double longitude , String name, double range) {
+        public Organization(String address, double latitude, double longitude , String mobNo, String name, double range) {
             this.name = name;
             this.address = address;
             this.range = range;
+            this.MobNo = mobNo;
             this.latitude = latitude;
             this.longitude = longitude;
         }
