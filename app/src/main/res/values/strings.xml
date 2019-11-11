@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">FoodManagement</string>
-    <string name="sign_up"><u>Sign up</u></string>
+    <string name="sign_up_ec"><u>Sign up as Event Host</u></string>
+    <string name="sign_up_ngo"><u>Sign up as NGO</u></string>
     <string name="sign_in"><u>Login</u></string>
     <string name="planit_des">Our team offers to you a single destination to plan all your events — from weddings to birthday parties to large dinners, we bring to you a simple and seamless experience on our app.</string>
     <string name="planit_dis">Disclaimer: This app is part of my major project in pursuit of an undergraduate degree in Computer Science and Engineering. Any ideas and recommendations are welcome!</string>
